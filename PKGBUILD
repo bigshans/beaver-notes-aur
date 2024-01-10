@@ -1,4 +1,4 @@
-# Maintainer: Moabeat <moabeat@berlin.de>
+# Maintainer: bigshans <wo199710@hotmail.com>
 
 pkgname=beaver-notes
 pkgver=2.5.0
