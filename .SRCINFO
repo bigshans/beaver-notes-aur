@@ -1,0 +1,20 @@
+pkgbase = beaver-notes
+	pkgdesc = A privacy-focused, cross-platform note-taking application.
+	pkgver = 2.5.0
+	pkgrel = 1
+	url = https://www.beavernotes.com/
+	arch = x86_64
+	license = MIT
+	makedepends = npm
+	makedepends = yarn
+	makedepends = nodejs
+	makedepends = imagemagick
+	makedepends = libxcrypt-compat
+	depends = electron
+	provides = beaver-notes
+	source = beaver-notes-2.5.0.tar.gz::https://github.com/Daniele-rolli/Beaver-Notes/archive/refs/tags/2.5.0.tar.gz
+	source = beaver-notes.desktop
+	sha256sums = SKIP
+	sha256sums = 988dc1020793d118dd2dc20745881ee6f4db221c61be503dc762f0d43318dfee
+
+pkgname = beaver-notes
