@@ -10,12 +10,12 @@ arch=('x86_64')
 url="https://www.beavernotes.com/"
 license=('MIT')
 depends=(electron)
-makedepends=('npm' 'yarn' 'nodejs' 'imagemagick' 'libxcrypt-compat')
+makedepends=('asar' 'npm' 'yarn' 'nodejs' 'imagemagick' 'libxcrypt-compat')
 provides=('beaver-notes')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Daniele-rolli/Beaver-Notes/archive/refs/tags/$pkgver.tar.gz"
         "beaver-notes.desktop")
-sha256sums=("SKIP"
-            "988dc1020793d118dd2dc20745881ee6f4db221c61be503dc762f0d43318dfee")
+sha256sums=('33c419603fe88a164660adb8a37abca66433260e98008e030615e8bc615a407f'
+            '4475ac27a250fd89667e0c7130863e666725c7f41a605df5a05889515b29cfb3')
 
 build() {
 	cd "Beaver-Notes-$pkgver"
@@ -31,12 +31,14 @@ build() {
 
 package() {
     cd "Beaver-Notes-$pkgver"
+	install -dm 755 "$pkgdir"/usr/lib/$pkgname
+  asar extract ./dist/linux-unpacked/resources/app.asar ./dist/linux-unpacked/resources/app
 	# Copy full application to destiation directory
-	install -dm 755 "$pkgdir"/opt/$pkgname
-    echo '#!/bin/env bash
-electron /opt/beaver-notes/resources/app.asar' >> "$pkgdir"/opt/$pkgname/$pkgname
-  chmod +x "$pkgdir"/opt/$pkgname/$pkgname
-	cp -r --no-preserve=ownership --preserve=mode dist/linux-unpacked/resources "$pkgdir"/opt/$pkgname/resources
+	cp -r --no-preserve=ownership --preserve=mode dist/linux-unpacked/resources/app "$pkgdir"/usr/lib/$pkgname
+	install -dm 755 "$pkgdir"/usr/bin
+    echo '#!/bin/sh
+exec electron /usr/lib/beaver-notes/app "$@"' >> "$pkgdir"/usr/bin//$pkgname
+  chmod +x "$pkgdir"/usr/bin/$pkgname
 	
 	# Install desktop file
 	install -Dm 644 ../beaver-notes.desktop "$pkgdir"/usr/share/applications/beaver-notes.desktop
