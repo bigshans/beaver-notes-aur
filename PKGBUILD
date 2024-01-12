@@ -13,13 +13,16 @@ depends=(electron)
 makedepends=('asar' 'npm' 'yarn' 'nodejs' 'imagemagick' 'libxcrypt-compat')
 provides=('beaver-notes')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Daniele-rolli/Beaver-Notes/archive/refs/tags/$pkgver.tar.gz"
-        "beaver-notes.desktop")
+        "beaver-notes.desktop"
+        "no-font.patch")
 sha256sums=('33c419603fe88a164660adb8a37abca66433260e98008e030615e8bc615a407f'
-            '4475ac27a250fd89667e0c7130863e666725c7f41a605df5a05889515b29cfb3')
+            '4475ac27a250fd89667e0c7130863e666725c7f41a605df5a05889515b29cfb3'
+            'faf1f0ca0b1f99116d722edf437f94502a2cc1e8fe64ff22bfec209716535bab')
 
 build() {
 	cd "Beaver-Notes-$pkgver"
 
+  patch -Np1 -i ../no-font.patch
 	# Build the application
 	yarn install
 	yarn build
