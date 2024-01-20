@@ -2,7 +2,7 @@
 
 _pkgname=beaver-notes
 pkgname=beaver-notes-git
-pkgver=r153.546f342
+pkgver=r154.8d1445a
 pkgrel=1
 epoch=
 pkgdesc="A privacy-focused, cross-platform note-taking application."
