@@ -1,5 +1,6 @@
 # Maintainer: bigshans <wo199710@hotmail.com>
 
+_pkgname=beaver-notes
 pkgname=beaver-notes-git
 pkgver=r153.546f342
 pkgrel=1
@@ -37,14 +38,14 @@ build() {
 
 package() {
     cd "Beaver-Notes"
-	install -dm 755 "$pkgdir"/usr/lib/$pkgname
+	install -dm 755 "$pkgdir"/usr/lib/$_pkgname
   asar extract ./dist/linux-unpacked/resources/app.asar ./dist/linux-unpacked/resources/app
 	# Copy full application to destiation directory
-	cp -r --no-preserve=ownership --preserve=mode dist/linux-unpacked/resources/app "$pkgdir"/usr/lib/$pkgname
+	cp -r --no-preserve=ownership --preserve=mode dist/linux-unpacked/resources/app "$pkgdir"/usr/lib/$_pkgname
 	install -dm 755 "$pkgdir"/usr/bin
     echo '#!/bin/sh
-exec electron /usr/lib/beaver-notes/app "$@"' >> "$pkgdir"/usr/bin//$pkgname
-  chmod +x "$pkgdir"/usr/bin/$pkgname
+exec electron /usr/lib/beaver-notes/app "$@"' >> "$pkgdir"/usr/bin/$_pkgname
+  chmod +x "$pkgdir"/usr/bin/$_pkgname
 	
 	# Install desktop file
 	install -Dm 644 ../beaver-notes.desktop "$pkgdir"/usr/share/applications/beaver-notes.desktop
@@ -53,5 +54,5 @@ exec electron /usr/lib/beaver-notes/app "$@"' >> "$pkgdir"/usr/bin//$pkgname
 	install -Dm 644 buildResources/icon-7.png "$pkgdir"/usr/share/icons/hicolor/256x256/apps/beaver-notes.png
 
 	# Install license
-	install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+	install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${_pkgname}/LICENSE"
 }
