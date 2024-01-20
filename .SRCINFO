@@ -1,6 +1,6 @@
-pkgbase = beaver-notes
+pkgbase = beaver-notes-git
 	pkgdesc = A privacy-focused, cross-platform note-taking application.
-	pkgver = 2.5.0
+	pkgver = r153.546f342
 	pkgrel = 1
 	url = https://www.beavernotes.com/
 	arch = x86_64
@@ -13,11 +13,11 @@ pkgbase = beaver-notes
 	makedepends = libxcrypt-compat
 	depends = electron
 	provides = beaver-notes
-	source = beaver-notes-2.5.0.tar.gz::https://github.com/Daniele-rolli/Beaver-Notes/archive/refs/tags/2.5.0.tar.gz
+	conflicts = beaver-notes
+	conflicts = beaver-notes-bin
+	source = git+https://github.com/bigshans/Beaver-Notes.git#branch=flavor
 	source = beaver-notes.desktop
-	source = no-font.patch
-	sha256sums = 33c419603fe88a164660adb8a37abca66433260e98008e030615e8bc615a407f
+	sha256sums = SKIP
 	sha256sums = 4475ac27a250fd89667e0c7130863e666725c7f41a605df5a05889515b29cfb3
-	sha256sums = faf1f0ca0b1f99116d722edf437f94502a2cc1e8fe64ff22bfec209716535bab
 
-pkgname = beaver-notes
+pkgname = beaver-notes-git
