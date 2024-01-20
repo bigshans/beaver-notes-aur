@@ -1,7 +1,7 @@
 # Maintainer: bigshans <wo199710@hotmail.com>
 
-pkgname=beaver-notes
-pkgver=2.5.0
+pkgname=beaver-notes-git
+pkgver=r153.546f342
 pkgrel=1
 epoch=
 pkgdesc="A privacy-focused, cross-platform note-taking application."
@@ -10,19 +10,22 @@ arch=('x86_64')
 url="https://www.beavernotes.com/"
 license=('MIT')
 depends=(electron)
+conflicts=(beaver-notes beaver-notes-bin)
 makedepends=('asar' 'npm' 'yarn' 'nodejs' 'imagemagick' 'libxcrypt-compat')
 provides=('beaver-notes')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/Daniele-rolli/Beaver-Notes/archive/refs/tags/$pkgver.tar.gz"
-        "beaver-notes.desktop"
-        "no-font.patch")
-sha256sums=('33c419603fe88a164660adb8a37abca66433260e98008e030615e8bc615a407f'
-            '4475ac27a250fd89667e0c7130863e666725c7f41a605df5a05889515b29cfb3'
-            'faf1f0ca0b1f99116d722edf437f94502a2cc1e8fe64ff22bfec209716535bab')
+source=("git+https://github.com/bigshans/Beaver-Notes.git#branch=flavor"
+        "beaver-notes.desktop")
+sha256sums=('SKIP'
+            '4475ac27a250fd89667e0c7130863e666725c7f41a605df5a05889515b29cfb3')
+
+pkgver() {
+	cd "${srcdir}/Beaver-Notes"
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
 
 build() {
-	cd "Beaver-Notes-$pkgver"
+	cd "Beaver-Notes"
 
-  patch -Np1 -i ../no-font.patch
 	# Build the application
 	yarn install
 	yarn build
@@ -33,7 +36,7 @@ build() {
 }
 
 package() {
-    cd "Beaver-Notes-$pkgver"
+    cd "Beaver-Notes"
 	install -dm 755 "$pkgdir"/usr/lib/$pkgname
   asar extract ./dist/linux-unpacked/resources/app.asar ./dist/linux-unpacked/resources/app
 	# Copy full application to destiation directory
