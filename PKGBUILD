@@ -40,6 +40,7 @@ package() {
     cd "Beaver-Notes"
 	install -dm 755 "$pkgdir"/usr/lib/$_pkgname
   asar extract ./dist/linux-unpacked/resources/app.asar ./dist/linux-unpacked/resources/app
+  rm -rf ./dist/linux-unpacked/resources/app/node_modules
 	# Copy full application to destiation directory
 	cp -r --no-preserve=ownership --preserve=mode dist/linux-unpacked/resources/app "$pkgdir"/usr/lib/$_pkgname
 	install -dm 755 "$pkgdir"/usr/bin
