@@ -2,15 +2,15 @@
 
 _pkgname=beaver-notes
 pkgname=beaver-notes-git
-pkgver=r154.8d1445a
+pkgver=r484.ee6d42f
 pkgrel=1
 epoch=
 pkgdesc="A privacy-focused, cross-platform note-taking application."
-_electron=electron
+_electron=electron29
 arch=('x86_64')
 url="https://www.beavernotes.com/"
 license=('MIT')
-depends=(electron)
+depends=(${_electron})
 conflicts=(beaver-notes beaver-notes-bin)
 makedepends=('asar' 'npm' 'yarn' 'nodejs' 'imagemagick' 'libxcrypt-compat')
 provides=('beaver-notes')
@@ -28,7 +28,7 @@ build() {
 	cd "Beaver-Notes"
 
 	# Build the application
-	yarn install
+  PUPPETEER_SKIP_DOWNLOAD=1 yarn install
 	yarn build
 	yarn electron-builder build --config electron-builder.config.cjs --linux dir --x64 --config.asar=true
 	
@@ -45,7 +45,7 @@ package() {
 	cp -r --no-preserve=ownership --preserve=mode dist/linux-unpacked/resources/app "$pkgdir"/usr/lib/$_pkgname
 	install -dm 755 "$pkgdir"/usr/bin
     echo '#!/bin/sh
-exec electron /usr/lib/beaver-notes/app "$@"' >> "$pkgdir"/usr/bin/$_pkgname
+exec ${_electron} /usr/lib/beaver-notes/app "$@"' >> "$pkgdir"/usr/bin/$_pkgname
   chmod +x "$pkgdir"/usr/bin/$_pkgname
 	
 	# Install desktop file
