@@ -44,8 +44,10 @@ package() {
 	# Copy full application to destiation directory
 	cp -r --no-preserve=ownership --preserve=mode dist/linux-unpacked/resources/app "$pkgdir"/usr/lib/$_pkgname
 	install -dm 755 "$pkgdir"/usr/bin
-    echo '#!/bin/sh
-exec ${_electron} /usr/lib/beaver-notes/app "$@"' >> "$pkgdir"/usr/bin/$_pkgname
+	cat >>"$pkgdir"/usr/bin/$_pkgname << EOD
+#!/bin/sh
+exec ${_electron} /usr/lib/beaver-notes/app "\$@"
+EOD
   chmod +x "$pkgdir"/usr/bin/$_pkgname
 	
 	# Install desktop file
