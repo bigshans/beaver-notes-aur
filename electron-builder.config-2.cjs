@@ -1,6 +1,6 @@
 
-module.exports = () => {
-  const config = require('./electron-builder.config.cjs')();
+module.exports = async () => {
+  const config = await require('./electron-builder.config.cjs')();
   delete config.mac;
   delete config.win;
   delete config.nsis;
